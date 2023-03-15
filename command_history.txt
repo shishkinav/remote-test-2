@@ -1,0 +1,392 @@
+  2010  git clone git@github.com:shishkinav/remote-test-1.git
+ 2011  ls
+ 2012  ls -l
+ 2013  cd remote-test-1/
+ 2014  ls
+ 2015  git remote -v
+ 2016  echo "Привет мир" > test.txt
+ 2017  ls
+ 2018  git add .
+ 2019  git status
+ 2020  git commit -m "Тестовый файл"
+ 2021  git status
+ 2022  git push
+ 2023  git status
+ 2024  git remote -v
+ 2025  git remote remove origin 
+ 2026  git remote -v
+ 2027  git remote add origin git@github.com:shishkinav/remote-test-2.git
+ 2028  git remote -v
+ 2029  git status
+ 2030  git push -u origin master
+ 2031  git push -u origin main
+ 2032  git pull
+ 2033  git branch --help
+ 2034  git branch --set-upstream-to=origin/main master
+ 2035  git branch --set-upstream-to=origin/main main 
+ 2036  git push -u origin main 
+ 2037  git pull --help
+ 2038  git pull
+ 2039  git fetch 
+ 2040  git status
+ 2041  git push --force origin main
+ 2042  git config --list
+ 2043  git config --local user.email shishkin_anatoli@mail.ru
+ 2044  git config --list
+ 2045  git remote -v
+ 2046  git remote add source git@github.com:shishkinav/remote-test-1.git
+ 2047  git remote -v
+ 2048  echo "Тренируемся на втором задании, создаём файл в два репозитория" > third.txt
+ 2049  git status
+ 2050  git add third.txt 
+ 2051  git status
+ 2052  git commit -m "новый коммит с третим файлом"
+ 2053  git status
+ 2054  git push -u origin main 
+ 2055  git push -u second main 
+ 2056  git push -u source main 
+ 2057  git remote -v
+ 2058  git fetch --all
+ 2059  git log origin/main ^main 
+ 2060  git log source/main ^main 
+ 2061  git merge origin/main 
+ 2062  git merge source/main 
+ 2063  git fetch --help
+ 2064  git add test_4.txt 
+ 2065  git commit -m "тестовый четыре"
+ 2066  git status
+ 2067  git log source/main ^main 
+ 2068  git push -u source main 
+ 2069  git log source/main ^main 
+ 2070  git log source/main main 
+ 2071  git push -u origin main 
+ 2072  git log source/main main 
+ 2073  git log origin/main main 
+ 2074  git fetch --all
+ 2075  history
+ 2076  git remote remove source 
+ 2077  git remote -v
+ 2078  git checkout -b 24-issue
+ 2079  git push -u origin 24-issue 
+ 2080  git pull 24-issue
+ 2081  git pull
+ 2082  git remote -v
+ 2083  git pull 24-issue
+ 2084  git branch --set-upstream-to=origin/24-issue 24-issue 
+ 2085  git push -u origin 24-issue 
+ 2086  git pull 
+ 2087  git status 
+ 2088  git push 
+ 2089  git checkout main 
+ 2090  git merge 24-issue 
+ 2091  cat test.txt 
+ 2092  git status 
+ 2093  git pull origin main 
+ 2094  git diff
+ 2095  git diff -b
+ 2096  git merge --abort 
+ 2097  git pull origin main 
+ 2098  git status
+ 2099  git diff -b
+ 2100  git diff --ours
+ 2101  cat test.txt 
+ 2102  git diff --theirs 
+ 2103  git diff --theirs -b
+ 2104  git log --graph
+ 2105  git log --graph --oneline
+ 2106  git log --graph --oneline --all
+ 2107  git checkout --conflict=diff3 main 
+ 2108  git diff
+ 2109  vi test.txt 
+ 2110  git diff
+ 2111  git status
+ 2112  git add test.txt 
+ 2113  git commit -m "resolve conflict origin/main -> main"
+ 2114  git diff
+ 2115  git pull
+ 2116  git push origin main 
+ 
+ 
+
+## А также я столкнулся с конфликтами и порешал их
+## Прикладываю терминальные команды
+
+ >>>$ git pull origin main 
+Из github.com:shishkinav/remote-test-2
+ * branch            main       -> FETCH_HEAD
+Автослияние test.txt
+КОНФЛИКТ (содержимое): Конфликт слияния в test.txt
+Сбой автоматического слияния; исправьте конфликты, затем зафиксируйте результат.
+
+>>>$ git diff
+diff --cc test.txt
+index 75ec185,c0163bd..0000000
+--- a/test.txt
++++ b/test.txt
+@@@ -1,3 -1,2 +1,7 @@@
+  Привет мир
+++<<<<<<< HEAD
+ +Жизнь хороша
+ +ыфдлофыдвплрыфввпды
+++=======
++ изменения
+++>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ git diff -b
+diff --cc test.txt
+index 75ec185,c0163bd..0000000
+--- a/test.txt
++++ b/test.txt
+@@@ -1,3 -1,2 +1,7 @@@
+  Привет мир
+++<<<<<<< HEAD
+ +Жизнь хороша
+ +ыфдлофыдвплрыфввпды
+++=======
++ изменения
+++>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ git merge --abort 
+
+>>>$ git pull origin main 
+Из github.com:shishkinav/remote-test-2
+ * branch            main       -> FETCH_HEAD
+Автослияние test.txt
+КОНФЛИКТ (содержимое): Конфликт слияния в test.txt
+Сбой автоматического слияния; исправьте конфликты, затем зафиксируйте результат.
+
+>>>$ git status
+Текущая ветка: main
+Ваша ветка и «origin/main» разделились
+и теперь имеют 4 и 1 разных коммитов в каждой соответственно.
+  (используйте «git pull», чтобы слить внешнюю ветку в вашу)
+
+У вас есть не слитые пути.
+  (разрешите конфликты, затем запустите «git commit»)
+  (используйте «git merge --abort», чтобы остановить операцию слияния)
+
+Не слитые пути:
+  (используйте «git add <файл>...», чтобы пометить разрешение конфликта)
+        оба изменены:   test.txt
+
+индекс пуст (используйте «git add» и/или «git commit -a»)
+
+>>>$ git diff -b
+diff --cc test.txt
+index 75ec185,c0163bd..0000000
+--- a/test.txt
++++ b/test.txt
+@@@ -1,3 -1,2 +1,7 @@@
+  Привет мир
+++<<<<<<< HEAD
+ +Жизнь хороша
+ +ыфдлофыдвплрыфввпды
+++=======
++ изменения
+++>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ git diff --ours
+* Unmerged path test.txt
+diff --git a/test.txt b/test.txt
+index 75ec185..9c5a580 100644
+--- a/test.txt
++++ b/test.txt
+@@ -1,3 +1,7 @@
+ Привет мир
++<<<<<<< HEAD
+ Жизнь хороша
+ ыфдлофыдвплрыфввпды
++=======
++изменения
++>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ cat test.txt 
+Привет мир
+<<<<<<< HEAD
+Жизнь хороша
+ыфдлофыдвплрыфввпды
+=======
+изменения
+>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ git diff --theirs 
+* Unmerged path test.txt
+diff --git a/test.txt b/test.txt
+index c0163bd..9c5a580 100644
+--- a/test.txt
++++ b/test.txt
+@@ -1,2 +1,7 @@
+ Привет мир
++<<<<<<< HEAD
++Жизнь хороша
++ыфдлофыдвплрыфввпды
++=======
+ изменения
++>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ git diff --theirs -b
+* Unmerged path test.txt
+diff --git a/test.txt b/test.txt
+index c0163bd..9c5a580 100644
+--- a/test.txt
++++ b/test.txt
+@@ -1,2 +1,7 @@
+ Привет мир
++<<<<<<< HEAD
++Жизнь хороша
++ыфдлофыдвплрыфввпды
++=======
+ изменения
++>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ git log --graph
+*   commit 359792240f04a2cf6f9c79261b89db35899884a5 (HEAD -> main, origin/24-issue, 24-issue)
+|\  Merge: 343bb6a 00350db
+| | Author: Anatoliy Shishkin <shishkin_anatoli@mail.ru>
+| | Date:   Wed Mar 15 21:44:26 2023 +0300
+| | 
+| |     Merge branch '24-issue' of github.com:shishkinav/remote-test-2 into 24-issue
+| | 
+| * commit 00350db6c87cf2a5d0c5e198c9ccec345a7dbe6d
+| | Author: Anatoly Shishkin <shishkin_anatoli@mail.ru>
+| | Date:   Wed Mar 15 21:37:42 2023 +0300
+| | 
+| |     Update test.txt
+| | 
+* | commit 343bb6a70db234714910083f7567ff5e821973a5
+| | Author: Anatoliy Shishkin <shishkin_anatoli@mail.ru>
+| | Date:   Wed Mar 15 21:40:59 2023 +0300
+| | 
+| |     новый файл в новой ветке
+*   commit 359792240f04a2cf6f9c79261b89db35899884a5 (HEAD -> main, origin/24-issue, 24-issue)
+|\  Merge: 343bb6a 00350db
+| | Author: Anatoliy Shishkin <shishkin_anatoli@mail.ru>
+| | Date:   Wed Mar 15 21:44:26 2023 +0300
+| | 
+| |     Merge branch '24-issue' of github.com:shishkinav/remote-test-2 into 24-issue
+| | 
+| * commit 00350db6c87cf2a5d0c5e198c9ccec345a7dbe6d
+| | Author: Anatoly Shishkin <shishkin_anatoli@mail.ru>
+| | Date:   Wed Mar 15 21:37:42 2023 +0300
+| | 
+| |     Update test.txt
+| | 
+* | commit 343bb6a70db234714910083f7567ff5e821973a5
+| | Author: Anatoliy Shishkin <shishkin_anatoli@mail.ru>
+| | Date:   Wed Mar 15 21:40:59 2023 +0300
+| | 
+| |     новый файл в новой ветке
+| | 
+* | commit 83bb006c1a4abeaf397180bda940dadd79eb3d4b
+|/  Author: Anatoliy Shishkin <shishkin_anatoli@mail.ru>
+|   Date:   Wed Mar 15 21:40:47 2023 +0300
+|   
+|       задание урока
+| 
+* commit e1bbbe00c326fd02a6e13026d9ed1148abe41678
+| Author: Anatoliy Shishkin <shishkin_anatoli@mail.ru>
+| Date:   Wed Mar 15 21:21:13 2023 +0300
+| 
+|     тестовый четыре
+| 
+* commit b886278641dec8427c7d295198a972eabf9c09d3
+| Author: Anatoliy Shishkin <shishkin_anatoli@mail.ru>
+| Date:   Wed Mar 15 21:13:54 2023 +0300
+| 
+|     новый коммит с третим файлом
+
+>>>$ git log --graph --oneline
+*   3597922 (HEAD -> main, origin/24-issue, 24-issue) Merge branch '24-issue' of github.com:shishkinav/remote-test-2 into 24-issue
+|\  
+| * 00350db Update test.txt
+* | 343bb6a новый файл в новой ветке
+* | 83bb006 задание урока
+|/  
+* e1bbbe0 тестовый четыре
+* b886278 новый коммит с третим файлом
+* 2afeb29 уникальный файл для отличий
+* 2b98b99 Тестовый файл
+* db289d2 Initial commit
+
+>>>$ git log --graph --oneline --all
+*   3597922 (HEAD -> main, origin/24-issue, 24-issue) Merge branch '24-issue' of github.com:shishkinav/remote-test-2 into 24-issue
+|\  
+| * 00350db Update test.txt
+* | 343bb6a новый файл в новой ветке
+* | 83bb006 задание урока
+|/  
+| * 3c85569 (origin/main) Update test.txt
+|/  
+* e1bbbe0 тестовый четыре
+* b886278 новый коммит с третим файлом
+* 2afeb29 уникальный файл для отличий
+* 2b98b99 Тестовый файл
+* db289d2 Initial commit
+
+>>>$ git checkout --conflict=diff3 main 
+test.txt: needs merge
+error: сначала нужно разрешить конфликты в вашем текущем индексе
+
+>>>$ git diff
+diff --cc test.txt
+index 75ec185,c0163bd..0000000
+--- a/test.txt
++++ b/test.txt
+@@@ -1,3 -1,2 +1,7 @@@
+  Привет мир
+++<<<<<<< HEAD
+ +Жизнь хороша
+ +ыфдлофыдвплрыфввпды
+++=======
++ изменения
+++>>>>>>> 3c8556977ae171b7ab114f4689d9b22117b69929
+
+>>>$ vi test.txt 
+
+>>>$ git diff
+diff --cc test.txt
+index 75ec185,c0163bd..0000000
+--- a/test.txt
++++ b/test.txt
+@@@ -1,3 -1,2 +1,4 @@@
+  Привет мир
+ +Жизнь хороша
++ изменения
+ +ыфдлофыдвплрыфввпды
+
+>>>$ git status
+Текущая ветка: main
+Ваша ветка и «origin/main» разделились
+и теперь имеют 4 и 1 разных коммитов в каждой соответственно.
+  (используйте «git pull», чтобы слить внешнюю ветку в вашу)
+
+У вас есть не слитые пути.
+  (разрешите конфликты, затем запустите «git commit»)
+  (используйте «git merge --abort», чтобы остановить операцию слияния)
+
+Не слитые пути:
+  (используйте «git add <файл>...», чтобы пометить разрешение конфликта)
+        оба изменены:   test.txt
+
+индекс пуст (используйте «git add» и/или «git commit -a»)
+
+>>>$ git add test.txt 
+
+>>>$ git commit -m "resolve conflict origin/main -> main"
+[main 05b8c94] resolve conflict origin/main -> main
+
+>>>$ git diff
+
+>>>$ git pull
+Уже актуально.
+
+>>>$ git push origin main 
+Перечисление объектов: 7, готово.
+Подсчет объектов: 100% (7/7), готово.
+При сжатии изменений используется до 8 потоков
+Сжатие объектов: 100% (3/3), готово.
+Запись объектов: 100% (3/3), 387 байтов | 387.00 КиБ/с, готово.
+Всего 3 (изменения 1), повторно использовано 0 (изменения 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:shishkinav/remote-test-2.git
+   3c85569..05b8c94  main -> main
